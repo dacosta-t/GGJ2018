@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class Mirror : MonoBehaviour
 {
+    // Mirror starting grab state
     public bool grabbed = false;
+
+    // Degree of rotation applied for each button press
     public float rotationSpeed = 15.0f;
+
+    // Reference to Light prefab
     public GameObject lightParticlePrefab;
 
+    // Instance of light particle for each new rotation
     GameObject reflectedLightParticle;
+
+    // Current origin of light before reflection
+    Vector3 currentOrigin;
+
+    // Current point of contact of light on mirror
+    Vector3 currentHitPoint;
 
     void Awake()
     {
+        currentOrigin = Vector3.zero;
+        currentHitPoint = Vector3.zero;
     }
 
     // Use this for initialization
@@ -24,6 +38,7 @@ public class Mirror : MonoBehaviour
     {
     }
 
+    // Rotate mirror to the right
     public void RotateRight()
     {
         if (grabbed)
@@ -32,6 +47,7 @@ public class Mirror : MonoBehaviour
         }
     }
 
+    // Rotate mirror to the left
     public void RotateLeft()
     {
         if (grabbed)
@@ -40,14 +56,20 @@ public class Mirror : MonoBehaviour
         }
     }
 
+    // Reflect light off the surface of the mirror
+    //      Instantiates new light when light origin and hit point changes
     public void Reflect(Vector3 origin, RaycastHit hit)
     {
-
-        Vector3 incomingVec = hit.point - origin;
-        Vector3 reflectVec = Vector3.Reflect(incomingVec, hit.normal);
-        Vector3 relativePos = reflectVec - hit.point;
-        Quaternion rotation = Quaternion.LookRotation(relativePos);
-        Destroy(reflectedLightParticle);
-        reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point, rotation);
+        if (!currentHitPoint.Equals(hit.point) || !currentOrigin.Equals(origin))
+        {
+            Vector3 incomingVec = hit.point - origin;
+            Vector3 reflectVec = Vector3.Reflect(incomingVec, hit.normal);
+            Vector3 relativePos = reflectVec - hit.point;
+            Quaternion rotation = Quaternion.LookRotation(relativePos);
+            Destroy(reflectedLightParticle);
+            reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point, rotation);
+            currentHitPoint = hit.point;
+            currentOrigin = origin;
+        }
     }
 }
