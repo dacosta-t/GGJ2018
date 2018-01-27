@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 
 		// moving
 		Vector3 moveDirection = (transform.forward * moveVertical + transform.right * moveHorizontal) * speed;
+
 		rb.velocity = moveDirection;
 
 		 
