@@ -17,21 +17,59 @@ public class PlayerController : MonoBehaviour {
 	public float speed = 12.0f;
 	public float mouseSensitivity = 30.0f;
 
-	public bool isGrabbing = false;
+	public bool isGrabbing;
 
 	private Rigidbody rb;
-	private Animator animtor;
 
 	void Start ()
 	{
+		isGrabbing = false;
 		rb = GetComponent<Rigidbody>();
-		animtor = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate ()
 	{
-		// TODO Grabbing checing and changing state
-		
+		if(Input.GetKey(KeyCode.W)
+		|| Input.GetKey(KeyCode.UpArrow))
+		{
+			GetComponent<Animator> ().SetTrigger ("Walk");
+		}
+
+		if(Input.GetKey(KeyCode.S)
+			|| Input.GetKey(KeyCode.DownArrow))
+		{
+			GetComponent<Animator> ().SetTrigger ("Walk");
+		}
+
+		if(Input.GetKey(KeyCode.A)
+			|| Input.GetKey(KeyCode.LeftArrow))
+		{
+			GetComponent<Animator> ().SetTrigger ("Walk");
+		}
+
+		if(Input.GetKey(KeyCode.D)
+			|| Input.GetKey(KeyCode.RightArrow))
+		{
+			GetComponent<Animator> ().SetTrigger ("Walk");
+		}
+
+		if(Input.GetKey(KeyCode.None))
+		{
+			GetComponent<Animator> ().SetTrigger ("Idle");
+		}
+
+//		if (GetComponent<Rigidbody> ().velocity == Vector3.zero) {
+//			Debug.Log ("is idle: Animation needs to be idle");
+//			GetComponent<Animator> ().SetTrigger ("Idle");
+//		} else {
+//			if (isGrabbing) {
+//				
+//			} else {
+//				GetComponent<Animator> ().SetTrigger ("Walk");
+//			}
+//		}
+			
+
 		Move();
 		Rotate ();
 	}
@@ -41,7 +79,6 @@ public class PlayerController : MonoBehaviour {
 	{	
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-		animtor.SetTrigger ("MakeWalk");
 		// Future, when its grabed apply the speed with grabing
 		if (isGrabbing) 
 		{
@@ -56,8 +93,6 @@ public class PlayerController : MonoBehaviour {
 		Vector3 moveDirection = (transform.forward * moveVertical + transform.right * moveHorizontal) * speed;
 
 		rb.velocity = moveDirection;
-
-		 
 	}
 
 	private void Rotate()

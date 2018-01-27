@@ -11,18 +11,11 @@ using UnityEngine;
 /// </summary>
 public class CharacterSwitcher : MonoBehaviour {
 
-	// for higlihting current character
-	public Color colorStart = Color.red;
-	public Color colorEnd = Color.green;
-	public float duration = 1.0F;
-	public Renderer rend;
-
 	// references of characters
 	GameObject[] characters;
 
 	// current character index
-	public int currentCharacterIndex = -1;
-
+	public int currentCharacterIndex;
 
 	void Awake()
 	{
@@ -33,7 +26,7 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	void Start()
 	{	
-		SetAllCharacterAnimationIdle ();
+		currentCharacterIndex = 0;
 		DeactivateCharacter (GetIndexOfTheCharacter ("Character02"));
 		SwitchCharacter (GetIndexOfTheCharacter ("Character01"));
 	}
@@ -92,10 +85,7 @@ public class CharacterSwitcher : MonoBehaviour {
 			// make it is kineatic to not moveable
 			characters [index].GetComponent<Rigidbody>().isKinematic = true;
 			// turn off the spotlight(higliht) itself
-			Debug.Log(characters [index].transform.GetChild(0).GetComponent<Light>() + " disabled");
 			characters [index].transform.GetChild (0).gameObject.SetActive (false);
-
-
 		} 
 		else
 		{
@@ -184,14 +174,6 @@ public class CharacterSwitcher : MonoBehaviour {
 		Debug.Log ("GetIndexOfTheCharacter(): nothing found");
 
 		return -1;
-	}
-
-	private void SetAllCharacterAnimationIdle(){
-		foreach(GameObject character in characters)
-		{
-			character.GetComponent<Animator> ().SetTrigger ("MakeIdle");
-
-		}
 	}
 
 //	private void BlinkingCharacterColor(int index){

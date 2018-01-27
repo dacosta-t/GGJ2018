@@ -418,6 +418,8 @@ MonoBehaviour:
   speed: 12
   mouseSensitivity: 60
   isGrabbing: 0
+  isWalking: 0
+  isIdle: 0
 --- !u!136 &123913623
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -441,7 +443,7 @@ Animator:
   m_GameObject: {fileID: 123913620}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5985ef292e150554283b6163acb8ccb7, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2ce23d053c0e24a1c9c0864e32577ab9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 74428aafd42f246189eeecafa77dc028, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2536,6 +2538,8 @@ MonoBehaviour:
   speed: 12
   mouseSensitivity: 60
   isGrabbing: 0
+  isWalking: 0
+  isIdle: 0
 --- !u!136 &1065203460
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3562,10 +3566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3859b4c58df1a4eb3344aae7087884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorStart: {r: 1, g: 0, b: 0, a: 1}
-  colorEnd: {r: 0, g: 1, b: 0, a: 1}
-  duration: 1
-  rend: {fileID: 0}
   currentCharacterIndex: 0
 --- !u!1 &1744421091
 GameObject:
