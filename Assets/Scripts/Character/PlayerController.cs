@@ -34,9 +34,12 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 
 		// Future, when its grabed apply the speed with grabing
-		if (isGrabbing) {
+		if (isGrabbing) 
+		{
 			speed = SPEED;
-		} else {
+		} 
+		else
+		{
 			speed = SPEED_WITH_GRAB;
 		}
 
@@ -54,10 +57,15 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 direction = new Vector3 (0f, mouseSensitivity * mouseX, 0f);
 
-		if( direction != Vector3.zero 
-			&& rb.velocity != Vector3.zero){
-			// rotation
+		if( direction != Vector3.zero)
+		{
+			// rotation while moving
 			transform.rotation = Quaternion.Euler(rb.rotation.eulerAngles + direction);
+		}
+
+		if (rb.velocity != Vector3.zero)
+		{
+			// rotation while moving mouse only
 			rb.rotation.SetLookRotation (rb.velocity);
 		}
 	}

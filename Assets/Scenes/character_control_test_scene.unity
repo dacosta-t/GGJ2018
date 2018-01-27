@@ -221,13 +221,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 8603048}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!1001 &54017672
 Prefab:
@@ -283,11 +283,20 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab5c31c2729644edd9ba28c089b01aaf, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &54017673 stripped
+--- !u!4 &54017673
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4042205505563508, guid: ab5c31c2729644edd9ba28c089b01aaf,
     type: 2}
   m_PrefabInternal: {fileID: 54017672}
+  m_GameObject: {fileID: 1154833915}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: -0, y: 10, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8603052}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &205816601
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +693,78 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1154833915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1036710739643802, guid: ab5c31c2729644edd9ba28c089b01aaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 54017672}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 54017673}
+  - component: {fileID: 1154833918}
+  - component: {fileID: 1154833917}
+  - component: {fileID: 1154833916}
+  m_Layer: 0
+  m_Name: MainCamera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1154833916
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 81104334742681806, guid: ab5c31c2729644edd9ba28c089b01aaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 54017672}
+  m_GameObject: {fileID: 1154833915}
+  m_Enabled: 1
+--- !u!124 &1154833917
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 124716056419516278, guid: ab5c31c2729644edd9ba28c089b01aaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 54017672}
+  m_GameObject: {fileID: 1154833915}
+  m_Enabled: 1
+--- !u!20 &1154833918
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 20992100259965452, guid: ab5c31c2729644edd9ba28c089b01aaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 54017672}
+  m_GameObject: {fileID: 1154833915}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &1302227689
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,13 +917,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1309854045}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!33 &1309854050
 MeshFilter:
@@ -1053,13 +1134,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1678854469}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!33 &1678854474
 MeshFilter:
