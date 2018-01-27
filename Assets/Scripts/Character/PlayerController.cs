@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player controller.
+///  - Controls characters by Rigidbody
+///  - Inputs: Mouse horizontal moves(rotates the character),
+/// 			WASD(or arrows) for forward, sides, backward 
+/// Author: Shawn(Dongwon) Kim
+/// </summary>
 public class PlayerController : MonoBehaviour {
 
 	public static float SPEED = 12.0f;
@@ -13,10 +20,12 @@ public class PlayerController : MonoBehaviour {
 	public bool isGrabbing = false;
 
 	private Rigidbody rb;
+	private Animator animtor;
 
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
+		animtor = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate ()
@@ -32,16 +41,20 @@ public class PlayerController : MonoBehaviour {
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-
+		animtor.SetTrigger ("MakeWalk");
 		// Future, when its grabed apply the speed with grabing
-		if (isGrabbing) {
+		if (isGrabbing) 
+		{
 			speed = SPEED;
-		} else {
+		} 
+		else
+		{
 			speed = SPEED_WITH_GRAB;
 		}
 
 		// moving
 		Vector3 moveDirection = (transform.forward * moveVertical + transform.right * moveHorizontal) * speed;
+
 		rb.velocity = moveDirection;
 
 		 
@@ -51,9 +64,19 @@ public class PlayerController : MonoBehaviour {
 	{
 		float mouseX = Input.GetAxis("Mouse X");
 
-		// rotation
-		transform.rotation = Quaternion.Euler(rb.rotation.eulerAngles + new Vector3(0f, mouseSensitivity * mouseX, 0f));
-		rb.rotation.SetLookRotation (rb.velocity);
+		Vector3 direction = new Vector3 (0f, mouseSensitivity * mouseX, 0f);
+
+		if( direction != Vector3.zero)
+		{
+			// rotation while moving
+			transform.rotation = Quaternion.Euler(rb.rotation.eulerAngles + direction);
+		}
+
+		if (rb.velocity != Vector3.zero)
+		{
+			// rotation while moving mouse only
+			rb.rotation.SetLookRotation (rb.velocity);
+		}
 	}
 
 }

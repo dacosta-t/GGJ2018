@@ -6,6 +6,7 @@ TagManager:
   tags:
   - char01
   - char02
+  - Box
   layers:
   - Default
   - TransparentFX
