@@ -148,6 +148,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
+  mirrorUpLeftOrientation: 0
 --- !u!23 &266044590
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -436,7 +437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &444294185
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -725,6 +726,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
+  mirrorUpLeftOrientation: 0
 --- !u!23 &492927758
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1164,6 +1166,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
+  mirrorUpLeftOrientation: 0
 --- !u!23 &1160146585
 MeshRenderer:
   m_ObjectHideFlags: 0
