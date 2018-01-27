@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public struct BoxFace {
-    public BoxCollider collider;
     public PhysicalLight light;
     public bool isInput;
     public float xOff;
@@ -27,17 +26,15 @@ public class Box : MonoBehaviour {
     }
 
     private void LoadFaces() {
-        BoxCollider[] colliders = GetComponents<BoxCollider>();
+        BoxCollider collider = GetComponent<BoxCollider>();
         BoxFace xPos = new BoxFace();
-        xPos.collider = colliders[0];
         xPos.rotation = 270;
-        xPos.xOff = transform.localScale.x / 2;
+        xPos.xOff = collider.size.y / 2;
         xPos.zOff = 0;
         xPos.index = 0;
         faces[0] = xPos;
 
         BoxFace xNeg = new BoxFace();
-        xNeg.collider = colliders[1];
         xNeg.rotation = 90;
         xNeg.xOff = -xPos.xOff;
         xNeg.zOff = 0;
@@ -45,15 +42,13 @@ public class Box : MonoBehaviour {
         faces[1] = xNeg;
 
         BoxFace zPos = new BoxFace();
-        zPos.collider = colliders[2];
         zPos.rotation = 180;
         zPos.xOff = 0;
-        zPos.zOff = transform.localScale.z / 2;
+        zPos.zOff = collider.size.y / 2;
         zPos.index = 2;
         faces[2] = zPos;
 
         BoxFace zNeg = new BoxFace();
-        zNeg.collider = colliders[3];
         zNeg.rotation = 0;
         zNeg.xOff = 0;
         zNeg.zOff = -zPos.zOff;
@@ -84,16 +79,23 @@ public class Box : MonoBehaviour {
 	void FixedUpdate () {
         for (int i = 0; i < 4; i++) {
             // Cull non sourced lights
-            if (!faces[i].isInput && faces[i].light != null && FindOppositeFace(faces[i].rotation).light == null) {
+            BoxFace outFace = FindOppositeFace(faces[i].rotation);
+            if (!faces[i].isInput && faces[i].light != null && outFace.light == null) {
                 print("Delete");
                 Destroy(faces[i].light.gameObject);
                 faces[i].light = null;
             // Create new lights
-            } else if (faces[i].isInput && faces[i].light != null && FindOppositeFace(faces[i].rotation).light == null) {
+            } else if (faces[i].isInput && faces[i].light != null && outFace.light == null) {
                 print("Create");
                 ParticleSystem pSys = faces[i].light.GetComponent<ParticleSystem>();
                 ParticleSystem.MainModule pMain = pSys.main;
                 CreateLight(faces[i].light, pMain.startColor.color, new Vector3(0, faces[i].rotation, 0));
+            } else if (faces[i].isInput && faces[i].light != null && outFace.light != null) {
+                if (faces[outFace.index].xOff == 0) {
+                    faces[outFace.index].light.transform.position = new Vector3(faces[i].light.transform.position.x, faces[i].light.transform.position.y, transform.position.z + faces[outFace.index].zOff);
+                } else {
+                    faces[outFace.index].light.transform.position = new Vector3(transform.position.x + faces[outFace.index].xOff, faces[i].light.transform.position.y, faces[i].light.transform.position.z);
+                }
             }
         }
     }
@@ -116,10 +118,24 @@ public class Box : MonoBehaviour {
         BoxFace outFace = FindOppositeFace(rotation.y);
         if (!faces[outFace.index].isInput || faces[outFace.index].light == null) {
             Color newColour = new Color();
-            newColour.r = ((colour.r + curColour.r) / 2);
-            newColour.g = ((colour.g + curColour.g) / 2);
-            newColour.b = ((colour.b + curColour.b) / 2);
+            if (colour.r == colour.g && colour.g == colour.b) {
+                newColour = curColour;
+            } else {
+                newColour.r = (colour.r + curColour.r);
+                newColour.g = (colour.g + curColour.g);
+                newColour.b = (colour.b + curColour.b);
+                if (colour.r > 255) {
+                    colour.r = 255;
+                }
+                if (colour.g > 255) {
+                    colour.g = 255;
+                }
+                if (colour.b > 255) {
+                    colour.b = 255;
+                }
+            }
             newColour.a = 1;
+
             Vector3 lightPos;
             if (faces[outFace.index].xOff == 0) {
                 lightPos = new Vector3(source.transform.position.x, source.transform.position.y, transform.position.z + faces[outFace.index].zOff);
