@@ -145,6 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 15
+  lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
+    type: 2}
 --- !u!23 &266044590
 MeshRenderer:
   m_ObjectHideFlags: 0
