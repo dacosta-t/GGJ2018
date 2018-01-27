@@ -22,6 +22,9 @@ public class Mirror : MonoBehaviour
     // Current point of contact of light on mirror
     Vector3 currentHitPoint;
 
+    Ray shootRay = new Ray();
+
+    RaycastHit shootHit;
     void Awake()
     {
         currentOrigin = Vector3.zero;
@@ -70,6 +73,22 @@ public class Mirror : MonoBehaviour
             reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point, rotation);
             currentHitPoint = hit.point;
             currentOrigin = origin;
+            shootRay.origin = hit.point;
+            shootRay.direction = relativePos;
+            if (Physics.Raycast(shootRay, out shootHit))
+            {
+                Mirror mirror = shootHit.collider.GetComponent<Mirror>();
+                //Debug.Log("hello", shootHit.collider);
+                mirror.Reflect(transform.position, shootHit);
+            }
+            else
+            {
+                Destroy(reflectedLightParticle);
+            }
+        }
+        else
+        {
+            Destroy(reflectedLightParticle);
         }
     }
 }
