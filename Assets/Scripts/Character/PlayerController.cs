@@ -52,9 +52,14 @@ public class PlayerController : MonoBehaviour {
 	{
 		float mouseX = Input.GetAxis("Mouse X");
 
-		// rotation
-		transform.rotation = Quaternion.Euler(rb.rotation.eulerAngles + new Vector3(0f, mouseSensitivity * mouseX, 0f));
-		rb.rotation.SetLookRotation (rb.velocity);
+		Vector3 direction = new Vector3 (0f, mouseSensitivity * mouseX, 0f);
+
+		if( direction != Vector3.zero 
+			&& rb.velocity != Vector3.zero){
+			// rotation
+			transform.rotation = Quaternion.Euler(rb.rotation.eulerAngles + direction);
+			rb.rotation.SetLookRotation (rb.velocity);
+		}
 	}
 
 }
