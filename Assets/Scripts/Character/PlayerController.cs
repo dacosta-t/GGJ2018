@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour {
 	public bool isGrabbing = false;
 
 	private Rigidbody rb;
+	private Animator animtor;
 
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
+		animtor = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate ()
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-
+		animtor.SetTrigger ("MakeWalk");
 		// Future, when its grabed apply the speed with grabing
 		if (isGrabbing) 
 		{

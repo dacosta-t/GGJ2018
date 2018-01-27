@@ -91,8 +91,13 @@ public class CharacterSwitcher : MonoBehaviour {
 			characters [index].GetComponent<PlayerController>().enabled = false;
 			// make it is kineatic to not moveable
 			characters [index].GetComponent<Rigidbody>().isKinematic = true;
-			// set the character mesh render color to be white back
-			characters [index].GetComponent<Renderer> ().material.color = Color.white;
+
+			if (characters [index].GetComponent<Renderer> () != null)
+			{	
+				// set the character mesh render color to be white back
+				characters [index].GetComponent<Renderer> ().material.color = Color.white;
+			}
+
 		} 
 		else
 		{
@@ -189,8 +194,12 @@ public class CharacterSwitcher : MonoBehaviour {
 		{
 			// Change color of current object's mesh
 			rend = characters [currentCharacterIndex].GetComponent<Renderer> ();
-			float lerp = Mathf.PingPong (Time.time, duration) / duration;
-			rend.material.color = Color.Lerp (colorStart, colorEnd, lerp);
+
+			if (rend != null)
+			{
+				float lerp = Mathf.PingPong (Time.time, duration) / duration;
+				rend.material.color = Color.Lerp (colorStart, colorEnd, lerp);
+			}
 		}
 		else
 		{
