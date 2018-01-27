@@ -21,7 +21,7 @@ public class CharacterSwitcher : MonoBehaviour {
 	GameObject[] characters;
 
 	// current character index
-	public int currentCharacterIndex;
+	public int currentCharacterIndex = -1;
 
 
 	void Awake()
@@ -33,8 +33,8 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	void Start()
 	{	
+		SetAllCharacterAnimationIdle ();
 		DeactivateCharacter (GetIndexOfTheCharacter ("Character02"));
-		DeactivateCharacter (GetIndexOfTheCharacter ("Character03"));
 		SwitchCharacter (GetIndexOfTheCharacter ("Character01"));
 	}
 
@@ -50,32 +50,32 @@ public class CharacterSwitcher : MonoBehaviour {
 			SwitchCharacter (GetIndexOfTheCharacter ("Character02"));
 		}
 
-		if(Input.GetKeyDown(KeyCode.F3))
-		{
-			SwitchCharacter (GetIndexOfTheCharacter ("Character03"));
-		}
-
-		BlinkingCharacterColor (currentCharacterIndex);
 	}
 
 
 	private void SwitchCharacter(int index)
 	{   		
-		if (index < characters.Length
-		    && index != currentCharacterIndex)
+		if (index < characters.Length)
 		{
-			// Deactivate current character
-			DeactivateCharacter (currentCharacterIndex);
-			// Set camera to the new character 
-			SetCameraTargetTo (index);
-			// Activate the new character
-			ActivateCharacter (index);
-			// Update current character index to be new character
-			UpdateCurrentCharacterIndex (index);
+
+			if (index != currentCharacterIndex) {
+				// Deactivate current character
+				DeactivateCharacter (currentCharacterIndex);
+				// Set camera to the new character 
+				SetCameraTargetTo (index);
+				// Activate the new character
+				ActivateCharacter (index);
+				// Update current character index to be new character
+				UpdateCurrentCharacterIndex (index);
+			}
+			else
+			{
+				Debug.Log ("SwitchCharacter(): Index is not valid");
+			}
 		} 
 		else
 		{
-			Debug.Log ("SwitchCharacter(): Index is not valid");
+			Debug.Log ("SwitchCharacter(): Index is out of bound");
 		}
 
 	}
@@ -91,12 +91,10 @@ public class CharacterSwitcher : MonoBehaviour {
 			characters [index].GetComponent<PlayerController>().enabled = false;
 			// make it is kineatic to not moveable
 			characters [index].GetComponent<Rigidbody>().isKinematic = true;
+			// turn off the spotlight(higliht) itself
+			Debug.Log(characters [index].transform.GetChild(0).GetComponent<Light>() + " disabled");
+			characters [index].transform.GetChild (0).gameObject.SetActive (false);
 
-			if (characters [index].GetComponent<Renderer> () != null)
-			{	
-				// set the character mesh render color to be white back
-				characters [index].GetComponent<Renderer> ().material.color = Color.white;
-			}
 
 		} 
 		else
@@ -110,12 +108,12 @@ public class CharacterSwitcher : MonoBehaviour {
 	{
 		if (index < characters.Length)
 		{
-//				characters [index].SetActive (true);
 			// PlayerController
 			characters [index].GetComponent<PlayerController>().enabled = true;
 			// make it is kineatic to  moveable
 			characters [index].GetComponent<Rigidbody>().isKinematic = false;
-
+			// turn on the spotlight(higliht) itself
+			characters [index].transform.GetChild (0).gameObject.SetActive (true);
 		}
 		else
 		{
@@ -143,7 +141,7 @@ public class CharacterSwitcher : MonoBehaviour {
 		if (index != currentCharacterIndex) 
 		{
 			// reference of camera transform
-			Transform camera = characters [currentCharacterIndex].transform.GetChild (0);
+			Transform camera = GameObject.Find("MainCamera").transform;
 
 			// reference of a switched transform
 			Transform newParentTransform = characters [index].transform;
@@ -188,22 +186,30 @@ public class CharacterSwitcher : MonoBehaviour {
 		return -1;
 	}
 
-	private void BlinkingCharacterColor(int index){
-
-		if (index == currentCharacterIndex)
+	private void SetAllCharacterAnimationIdle(){
+		foreach(GameObject character in characters)
 		{
-			// Change color of current object's mesh
-			rend = characters [currentCharacterIndex].GetComponent<Renderer> ();
+			character.GetComponent<Animator> ().SetTrigger ("MakeIdle");
 
-			if (rend != null)
-			{
-				float lerp = Mathf.PingPong (Time.time, duration) / duration;
-				rend.material.color = Color.Lerp (colorStart, colorEnd, lerp);
-			}
-		}
-		else
-		{
-			Debug.Log ("BlinkingCharacterColor(): invalid index");
 		}
 	}
+
+//	private void BlinkingCharacterColor(int index){
+//
+//		if (index == currentCharacterIndex)
+//		{
+//			// Change color of current object's mesh
+//			rend = characters [currentCharacterIndex].GetComponent<Renderer> ();
+//
+//			if (rend != null)
+//			{
+//				float lerp = Mathf.PingPong (Time.time, duration) / duration;
+//				rend.material.color = Color.Lerp (colorStart, colorEnd, lerp);
+//			}
+//		}
+//		else
+//		{
+//			Debug.Log ("BlinkingCharacterColor(): invalid index");
+//		}
+//	}
 }

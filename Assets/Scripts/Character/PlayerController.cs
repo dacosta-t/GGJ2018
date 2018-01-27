@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 	public static float SPEED_WITH_GRAB = 6.0f;
 
 	public float speed = 12.0f;
-	public float mouseSensitivity = 60.0f;
+	public float mouseSensitivity = 30.0f;
 
 	public bool isGrabbing = false;
 
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	private void Move()
-	{
+	{	
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		animtor.SetTrigger ("MakeWalk");
