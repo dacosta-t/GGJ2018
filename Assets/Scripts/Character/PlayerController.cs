@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player controller.
+///  - Controls characters by Rigidbody
+///  - Inputs: Mouse horizontal moves(rotates the character),
+/// 			WASD(or arrows) for forward, sides, backward 
+/// Author: Shawn(Dongwon) Kim
+/// </summary>
 public class PlayerController : MonoBehaviour {
 
 	public static float SPEED = 12.0f;

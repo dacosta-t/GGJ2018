@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Character switcher.
+///  - Switches(Deactivate/Activate) character to another by F1, F2, F3,
+///  - Higlihts a current character,
+///  - Attach main camera to the new current character
+/// Author: Shawn(Dongwon) Kim
+/// </summary>
 public class CharacterSwitcher : MonoBehaviour {
-	
+
+	// for higlihting current character
 	public Color colorStart = Color.red;
 	public Color colorEnd = Color.green;
 	public float duration = 1.0F;
 	public Renderer rend;
 
+	// references of characters
 	GameObject[] characters;
-	private Vector3 offset;        
 
+	// current character index
 	public int currentCharacterIndex;
 
 
@@ -55,18 +64,14 @@ public class CharacterSwitcher : MonoBehaviour {
 		if (index < characters.Length
 		    && index != currentCharacterIndex)
 		{
-			// DeactivateCharacter
+			// Deactivate current character
 			DeactivateCharacter (currentCharacterIndex);
-
-			// set camera to target index
+			// Set camera to the new character 
 			SetCameraTargetTo (index);
-
-			// Activate Character
+			// Activate the new character
 			ActivateCharacter (index);
-
-			// Update current character index
+			// Update current character index to be new character
 			UpdateCurrentCharacterIndex (index);
-
 		} 
 		else
 		{
@@ -86,7 +91,7 @@ public class CharacterSwitcher : MonoBehaviour {
 			characters [index].GetComponent<PlayerController>().enabled = false;
 			// make it is kineatic to not moveable
 			characters [index].GetComponent<Rigidbody>().isKinematic = true;
-
+			// set the character mesh render color to be white back
 			characters [index].GetComponent<Renderer> ().material.color = Color.white;
 		} 
 		else
@@ -132,7 +137,6 @@ public class CharacterSwitcher : MonoBehaviour {
 	{
 		if (index != currentCharacterIndex) 
 		{
-
 			// reference of camera transform
 			Transform camera = characters [currentCharacterIndex].transform.GetChild (0);
 
@@ -149,14 +153,10 @@ public class CharacterSwitcher : MonoBehaviour {
 
 			// roates the camera to be new parent camera
 			camera.rotation = Quaternion.Euler (newParentRotation.eulerAngles) * Quaternion.Euler (new Vector3 (45, 0, 0));
-
 			camera.localScale = Vector3.one;
 
 			// update relative location of the camera related to the parent
 			camera.localPosition  = new Vector3 (0, 10, -10);
-
-			//MEMO with the different angle of camera view, MainCamera location X, Z is changing
-
 		}
 		else 
 		{
