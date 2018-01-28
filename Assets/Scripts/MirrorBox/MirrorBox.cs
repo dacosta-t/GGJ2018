@@ -104,26 +104,32 @@ public class MirrorBox : MonoBehaviour
                 print("Light with incorrect rotation");
                 return new BoxFace();
             }
-        } else if (mirrorRotation == 90)
+        }
+        else if (mirrorRotation == 90)
         {
             if (inputLightYRotation == 0)
             {
                 return FindFace(270);
-            } else if (inputLightYRotation == 90)
+            }
+            else if (inputLightYRotation == 90)
             {
                 return FindFace(180);
-            } else if (inputLightYRotation == 180)
+            }
+            else if (inputLightYRotation == 180)
             {
                 return FindFace(90);
-            } else if (inputLightYRotation == 270)
+            }
+            else if (inputLightYRotation == 270)
             {
                 return FindFace(0);
-            } else
+            }
+            else
             {
                 print("Light with incorrect rotation");
                 return new BoxFace();
             }
-        } else
+        }
+        else
         {
             print("FindOutFace - Not valid rotation for mirror of 45 or 135 on Y");
             print("Actual rotation: " + mirrorRotation);
@@ -143,7 +149,7 @@ public class MirrorBox : MonoBehaviour
                 print("Delete");
                 Destroy(faces[i].light.gameObject);
                 faces[i].light = null;
-            // Create new lights
+                // Create new lights
             }
             else if (faces[i].isInput && faces[i].light != null && outFace.light == null)
             {
