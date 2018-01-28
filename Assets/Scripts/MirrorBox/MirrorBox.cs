@@ -104,26 +104,32 @@ public class MirrorBox : MonoBehaviour
                 print("Light with incorrect rotation");
                 return new BoxFace();
             }
-        } else if (mirrorRotation == 135)
+        }
+        else if (mirrorRotation == 135)
         {
             if (inputLightYRotation == 0)
             {
                 return FindFace(270);
-            } else if (inputLightYRotation == 90)
+            }
+            else if (inputLightYRotation == 90)
             {
                 return FindFace(180);
-            } else if (inputLightYRotation == 180)
+            }
+            else if (inputLightYRotation == 180)
             {
                 return FindFace(90);
-            } else if (inputLightYRotation == 270)
+            }
+            else if (inputLightYRotation == 270)
             {
                 return FindFace(0);
-            } else
+            }
+            else
             {
                 print("Light with incorrect rotation");
                 return new BoxFace();
             }
-        } else
+        }
+        else
         {
             print("FindOutFace - Not valid rotation for mirror of 45 or 135 on Y");
             print("Actual rotation: " + mirrorRotation);
@@ -143,7 +149,7 @@ public class MirrorBox : MonoBehaviour
                 print("Delete");
                 Destroy(faces[i].light.gameObject);
                 faces[i].light = null;
-            // Create new lights
+                // Create new lights
             }
             else if (faces[i].isInput && faces[i].light != null && outFace.light == null)
             {
@@ -180,11 +186,11 @@ public class MirrorBox : MonoBehaviour
             Vector3 lightPos;
             if (faces[outFace.index].xOff == 0)
             {
-                lightPos = new Vector3(transform.position.x + faces[outFace.index].zOff, source.transform.position.y, transform.position.z + faces[outFace.index].zOff);
+                lightPos = new Vector3(transform.position.x + (faces[outFace.index].zOff * 2), source.transform.position.y, transform.position.z + (faces[outFace.index].zOff * 2));
             }
             else
             {
-                lightPos = new Vector3(transform.position.x + faces[outFace.index].xOff, source.transform.position.y, source.transform.position.z);
+                lightPos = new Vector3(transform.position.x + (faces[outFace.index].xOff * 2), source.transform.position.y, source.transform.position.z + (faces[outFace.index].xOff * 2));
             }
             GameObject rayLight = Instantiate(inputLight, lightPos, Quaternion.Euler(new Vector3(0, FindOppositeFace(outFace.rotation).rotation, 0)));
             ParticleSystem light = rayLight.GetComponent<ParticleSystem>();
