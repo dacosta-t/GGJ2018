@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 /// <summary>
 /// Character switcher.
@@ -13,6 +14,9 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	// references of characters
 	GameObject[] characters;
+
+    // toggle grayscale effect
+    bool grayscale = false;
 
 	// current character index
 	public int currentCharacterIndex;
@@ -60,6 +64,8 @@ public class CharacterSwitcher : MonoBehaviour {
 				ActivateCharacter (index);
 				// Update current character index to be new character
 				UpdateCurrentCharacterIndex (index);
+                // Toggle grayscale
+                ToggleGrayscale(index);
 			}
 			else
 			{
@@ -176,6 +182,13 @@ public class CharacterSwitcher : MonoBehaviour {
 
 		return -1;
 	}
+
+    private void ToggleGrayscale(int index) {
+        if (index < characters.Length) {
+            grayscale = !grayscale;
+            GameObject.Find("MainCamera").GetComponent<Grayscale>().enabled = grayscale;
+        }
+    }
 
 //	private void BlinkingCharacterColor(int index){
 //
