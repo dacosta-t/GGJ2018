@@ -316,7 +316,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
-  mirrorUpLeftOrientation: 0
+  mirrorUpRightOrientation: 0
 --- !u!23 &266044590
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -816,7 +816,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
-  mirrorUpLeftOrientation: 0
+  mirrorUpRightOrientation: 0
 --- !u!23 &492927758
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   rotationSpeed: 90
   lightParticlePrefab: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf,
     type: 2}
-  mirrorUpLeftOrientation: 0
+  mirrorUpRightOrientation: 1
 --- !u!23 &1160146585
 MeshRenderer:
   m_ObjectHideFlags: 0
