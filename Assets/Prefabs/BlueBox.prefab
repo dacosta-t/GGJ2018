@@ -23,13 +23,10 @@ GameObject:
   - component: {fileID: 23599630908429904}
   - component: {fileID: 95182974630371452}
   - component: {fileID: 54580676672762070}
-  - component: {fileID: 65428248406961700}
-  - component: {fileID: 65299224302482578}
-  - component: {fileID: 65243929850810300}
   - component: {fileID: 65129738029745326}
   - component: {fileID: 114228115603532270}
   m_Layer: 0
-  m_Name: BallBlue_01
+  m_Name: BlueBox
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,44 +111,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 0.1}
-  m_Center: {x: 0, y: 0, z: -0.7}
---- !u!65 &65243929850810300
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1540412072230066}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0.7}
---- !u!65 &65299224302482578
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1540412072230066}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 1.5, z: 1.5}
-  m_Center: {x: -0.7, y: 0, z: 0}
---- !u!65 &65428248406961700
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1540412072230066}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 1.5, z: 1.5}
-  m_Center: {x: 0.7, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95182974630371452
 Animator:
   serializedVersion: 3
