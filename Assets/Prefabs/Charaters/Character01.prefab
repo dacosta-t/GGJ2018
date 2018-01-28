@@ -1035,6 +1035,7 @@ GameObject:
   - component: {fileID: 20912551023791394}
   - component: {fileID: 124001559797193162}
   - component: {fileID: 81219264559812156}
+  - component: {fileID: 114083597924404442}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -2901,6 +2902,20 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114083597924404442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658463100943146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 243a781cad112c75d0008dfa8d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: daf9781cad112c75d0008dfa8d76c639, type: 3}
+  textureRamp: {fileID: 0}
+  rampOffset: 0
 --- !u!114 &114270889678308122
 MonoBehaviour:
   m_ObjectHideFlags: 1
