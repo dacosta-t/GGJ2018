@@ -28,9 +28,10 @@ public class GoalController : MonoBehaviour {
 
 		// Stage Cleared Panel
 		GameObject canvas = GameObject.Find ("Canvas");
-		Transform tStageClearedPanel = canvas.transform.GetChild (2);
-		if (tStageClearedPanel != null) 
+		if (canvas != null) 
 		{
+			Transform tStageClearedPanel = canvas.transform.GetChild (2);
+
 			//activate the panel
 			tStageClearedPanel.gameObject.SetActive (true);
 			tStageClearedPanel.GetComponent<GlowImageOutline> ().enabled = true;
