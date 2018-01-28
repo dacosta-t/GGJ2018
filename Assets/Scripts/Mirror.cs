@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Mirror : MonoBehaviour
 {
-    // Mirror starting grab state
-    public bool grabbed = false;
-
     // Degree of rotation applied for each button press
     public float rotationSpeed = 15.0f;
 
     // Reference to Light prefab
     public GameObject lightParticlePrefab;
 
-    public bool mirrorUpRightOrientation = false;
+    // Mirror starting grab state
+    bool grabbed = false;
+
+    bool mirrorUpRightOrientation = false;
 
     // Instance of light particle for each new rotation
     GameObject reflectedLightParticle;
@@ -23,6 +23,10 @@ public class Mirror : MonoBehaviour
 
     // Current point of contact of light on mirror
     Vector3 currentHitPoint;
+
+    RaycastHit currentHit;
+
+    Quaternion currentRotation;
 
     Color currentColor;
 
@@ -41,20 +45,43 @@ public class Mirror : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (mirrorUpRightOrientation)
+        if (transform.rotation == Quaternion.Euler(0, 135, 0) || transform.rotation == Quaternion.Euler(0, 315, 0))
         {
-            transform.rotation = Quaternion.Euler(0, -45, 0);
+            mirrorUpRightOrientation = true;
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 45, 0) || transform.rotation == Quaternion.Euler(0, 225, 0))
+        {
+            mirrorUpRightOrientation = false;
         }
         else
         {
             transform.rotation = Quaternion.Euler(0, 45, 0);
+            mirrorUpRightOrientation = false;
         }
+        currentRotation = transform.rotation;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        if (transform.rotation == Quaternion.Euler(0, 135, 0) || transform.rotation == Quaternion.Euler(0, 315, 0))
+        {
+            mirrorUpRightOrientation = true;
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 45, 0) || transform.rotation == Quaternion.Euler(0, 225, 0))
+        {
+            mirrorUpRightOrientation = false;
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 45, 0);
+            mirrorUpRightOrientation = false;
+        }
+        if (currentRotation != transform.rotation)
+        {
+            cleanList();
+            currentRotation = transform.rotation;
+        }
     }
 
     // Rotate mirror 
@@ -63,11 +90,9 @@ public class Mirror : MonoBehaviour
         if (grabbed)
         {
             transform.Rotate(0, rotationSpeed, 0);
-            mirrorUpRightOrientation = !mirrorUpRightOrientation;
             cleanList();
         }
     }
-
 
     // Reflect light off the surface of the mirror
     //      Instantiates new light when light origin and hit point changes
@@ -108,6 +133,7 @@ public class Mirror : MonoBehaviour
             ParticleSystem.MainModule lightMain = light.main;
             lightMain.startColor = color;
             currentHitPoint = hit.point;
+            currentHit = hit;
             currentOrigin = origin;
             currentColor = color;
             mirrors.AddLast(this);
@@ -146,6 +172,11 @@ public class Mirror : MonoBehaviour
         }
     }
 
+    private void Reflect()
+    {
+        Reflect(currentOrigin, currentHit, currentColor);
+    }
+
     public void cleanList()
     {
         LinkedListNode<Mirror> last = mirrors.Find(this);
@@ -158,5 +189,7 @@ public class Mirror : MonoBehaviour
             mirrors.Remove(next);
             next = temp;
         }
+        Mirror mr = last.Value;
+        mr.Reflect();
     }
 }
