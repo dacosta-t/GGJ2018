@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23518879061402260}
   - component: {fileID: 95896052260425854}
   - component: {fileID: 54864311163101252}
-  - component: {fileID: 65608793113185006}
   - component: {fileID: 114772535488946558}
+  - component: {fileID: 135348742863392862}
   m_Layer: 0
   m_Name: GreenBox
   m_TagString: Box
@@ -39,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1317247151267918}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.01, y: 0.47, z: -2.72}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.01, y: 2, z: -2.72}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -101,18 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &65608793113185006
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317247151267918}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95896052260425854
 Animator:
   serializedVersion: 3
@@ -143,3 +131,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputLight: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf, type: 2}
   curColour: {r: 0, g: 1, b: 0, a: 0}
+--- !u!135 &135348742863392862
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317247151267918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.002456
+  m_Center: {x: 0, y: 0, z: 0}

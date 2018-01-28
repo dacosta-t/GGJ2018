@@ -15,9 +15,6 @@ public class CharacterSwitcher : MonoBehaviour {
 	// references of characters
 	GameObject[] characters;
 
-    // toggle grayscale effect
-    bool grayscale = false;
-
 	// current character index
 	public int currentCharacterIndex;
 
@@ -30,7 +27,7 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	void Start()
 	{	
-		currentCharacterIndex = 1;
+		currentCharacterIndex = 0;
 		DeactivateCharacter (GetIndexOfTheCharacter ("Character02"));
 		SwitchCharacter (GetIndexOfTheCharacter ("Character01"));
 	}
@@ -182,9 +179,10 @@ public class CharacterSwitcher : MonoBehaviour {
 	}
 
     private void ToggleGrayscale(int index) {
-        if (index < characters.Length) {
-            grayscale = !grayscale;
-            GameObject.Find("MainCamera").GetComponent<Grayscale>().enabled = grayscale;
+        if (index == GetIndexOfTheCharacter("Character01")) {
+            GameObject.Find("MainCamera").GetComponent<Grayscale>().enabled = true;
+        } else if (index == GetIndexOfTheCharacter("Character02")) {
+            GameObject.Find("MainCamera").GetComponent<Grayscale>().enabled = false;
         }
     }
 
