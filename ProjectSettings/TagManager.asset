@@ -8,6 +8,7 @@ TagManager:
   - char02
   - Box
   - Mirror
+  - Goal
   layers:
   - Default
   - TransparentFX

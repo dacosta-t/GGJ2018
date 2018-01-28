@@ -12,7 +12,7 @@ public struct BoxFace {
 }
 
 public class Box : MonoBehaviour {
-
+    
     private BoxFace[] faces;
     public GameObject inputLight;
     public Color curColour;
@@ -71,7 +71,7 @@ public class Box : MonoBehaviour {
         }
     }
 
-    private BoxFace FindOppositeFace(float yRotation) {
+    public BoxFace FindOppositeFace(float yRotation) {
         return FindFace(yRotation + 180 >= 360 ? yRotation - 180 : yRotation + 180);
     }
 	
@@ -90,7 +90,7 @@ public class Box : MonoBehaviour {
                 ParticleSystem pSys = faces[i].light.GetComponent<ParticleSystem>();
                 ParticleSystem.MainModule pMain = pSys.main;
                 CreateLight(faces[i].light, pMain.startColor.color, new Vector3(0, faces[i].rotation, 0));
-            } else if (faces[i].isInput && faces[i].light != null && outFace.light != null) {
+            } else if (faces[i].isInput && faces[i].light != null && outFace.light != null && !outFace.isInput) {
                 if (faces[outFace.index].xOff == 0) {
                     faces[outFace.index].light.transform.position = new Vector3(faces[i].light.transform.position.x, faces[i].light.transform.position.y, transform.position.z + faces[outFace.index].zOff);
                 } else {
@@ -158,6 +158,26 @@ public class Box : MonoBehaviour {
             faces[inFace.index].light = null;
             BoxFace outFace = FindOppositeFace(rotation.y);
             if (!faces[outFace.index].isInput) {
+                Destroy(faces[outFace.index].light.gameObject);
+                faces[outFace.index].light = null;
+            }
+        }
+    }
+
+    public void OnMissChain(Vector3 rotation)
+    {
+        if (FindOppositeFace(rotation.y).light.box != null)
+        {
+            FindOppositeFace(rotation.y).light.box.GetComponent<Box>().OnMissChain(rotation);
+        }
+        BoxFace inFace = FindFace(rotation.y);
+        if (faces[inFace.index].isInput)
+        {
+            faces[inFace.index].isInput = false;
+            faces[inFace.index].light = null;
+            BoxFace outFace = FindOppositeFace(rotation.y);
+            if (!faces[outFace.index].isInput)
+            {
                 Destroy(faces[outFace.index].light.gameObject);
                 faces[outFace.index].light = null;
             }
