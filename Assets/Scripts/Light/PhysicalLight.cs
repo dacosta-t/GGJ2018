@@ -36,16 +36,16 @@ public class PhysicalLight : MonoBehaviour
             // Trigger hit events
             if (hit.transform.tag == "Goal") {
                 hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
-            } else if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
+            }
+
+            if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
                 if (box != null) {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 }
                 box = hit.transform.gameObject;
                 box.GetComponent<Box>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
-            }
-            else if (hit.transform.tag != "Box" && box != null)
-            {
-                box.GetComponent<Box>().OnMiss(transform.eulerAngles);
+            } else if (hit.transform.tag != "Box" && box != null) {
+                box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }
             if (hit.transform.tag == "Mirror")
