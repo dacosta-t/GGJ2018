@@ -28,11 +28,11 @@ public class TestCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            mirror.RotateLeft();
+            mirror.Rotate();
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            mirror.RotateRight();
+            mirror.Rotate();
         }
     }
 
