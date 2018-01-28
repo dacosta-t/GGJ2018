@@ -17,8 +17,6 @@ public class Box : MonoBehaviour {
     public GameObject inputLight;
     public Color curColour;
 
-    //private PhysicalLight outputLight;
-
 	// Use this for initialization
 	void Start () {
         faces = new BoxFace[4];
@@ -26,7 +24,6 @@ public class Box : MonoBehaviour {
     }
 
     private void LoadFaces() {
-        //BoxCollider collider = GetComponent<BoxCollider>();
         SphereCollider collider = GetComponent<SphereCollider>();
         BoxFace xPos = new BoxFace();
         xPos.rotation = 270;

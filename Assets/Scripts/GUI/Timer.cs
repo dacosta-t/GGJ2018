@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
 
     private Text timerText;
     private float runTime = 0.0f;
+    private bool running = true;
     // Use this for initialization
     void Start()
     {
@@ -17,14 +18,27 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        runTime += Time.deltaTime;
+        if (running)
+        {
+            runTime += Time.deltaTime;
+            timerText.text = GetFormattedTime();
+        }
+    }
+
+    public string GetFormattedTime()
+    {
         if ((int)(runTime % 60) < 10)
         {
-            timerText.text = "" + (int)(runTime / 60) + ":0" + (int)(runTime % 60);
+            return (int)(runTime / 60) + ":0" + (int)(runTime % 60);
         }
         else
         {
-            timerText.text = "" + (int)(runTime / 60) + ":" + (int)(runTime % 60);
+            return (int)(runTime / 60) + ":" + (int)(runTime % 60);
         }
+    }
+
+    public void SetIsRunning(bool running)
+    {
+        this.running = running;
     }
 }

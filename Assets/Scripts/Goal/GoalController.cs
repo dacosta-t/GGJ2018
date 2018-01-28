@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GoalController : MonoBehaviour {
 
@@ -28,9 +29,16 @@ public class GoalController : MonoBehaviour {
 
 		// Stage Cleared Panel
 		GameObject canvas = GameObject.Find ("Canvas");
-		if (canvas != null) 
+		if (canvas != null)
 		{
+            Timer timer = GameObject.Find("Timer").GetComponent<Timer>();
 			Transform tStageClearedPanel = canvas.transform.GetChild (2);
+            Text tStageClearedText = tStageClearedPanel.GetChild(0).GetComponent<Text>();
+
+            timer.SetIsRunning(false);
+            //tStageClearedText.text = timer.GetFormattedTime();
+            //string temp = "STAGE\nCLEARED\n" + timer.GetFormattedTime();
+            tStageClearedText.text = "STAGE\nCLEARED\n\n" + timer.GetFormattedTime();
 
 			//activate the panel
 			tStageClearedPanel.gameObject.SetActive (true);
