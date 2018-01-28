@@ -189,9 +189,21 @@ public class PlayerController : MonoBehaviour
             if (anObject.tag == "Mirror"
             && transform.name == "Character01")
             {
-                //TODO Mirror: grab and make it Rotate
-                anObject.transform.rotation = Quaternion.Euler(anObject.transform.rotation.eulerAngles + new Vector3(0f, 90f, 0f));
 
+                Transform anObjectRot = anObject.transform;
+
+                if (anObjectRot.eulerAngles.y == 0)
+                {
+                    Debug.Log("0 " + anObjectRot);
+                    anObjectRot.Rotate(0f, 90f, 0f);
+
+                }
+                else
+                {
+                    Debug.Log("90");
+                    anObjectRot.Rotate(0f, -90f, 0f);
+                }
+                //TODO Mirror: grab and make it Rotate
             }
         }
     }
