@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicalLight : MonoBehaviour {
+public class PhysicalLight : MonoBehaviour
+{
 
     private float distance = 0;
     private ParticleSystem pSys;
     private ParticleSystem.MainModule pMain;
     private ParticleSystem.EmissionModule pEmission;
+    private GameObject mirror;
+	
     [HideInInspector]
     public GameObject box;
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         pSys = GetComponent<ParticleSystem>();
         pMain = pSys.main;
         pEmission = pSys.emission;
-	}
+    }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        {
             // Draw light beam
             distance = hit.distance;
             float factor = Mathf.Sqrt(distance);
@@ -40,9 +45,16 @@ public class PhysicalLight : MonoBehaviour {
                 }
                 box = hit.transform.gameObject;
                 box.GetComponent<Box>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
-            } else if (hit.transform.tag != "Box" && box != null) {
+            }
+            else if (hit.transform.tag != "Box" && box != null)
+            {
                 box.GetComponent<Box>().OnMiss(transform.eulerAngles);
                 box = null;
+            }
+            if (hit.transform.tag == "Mirror")
+            {
+                mirror = hit.transform.gameObject;
+                mirror.GetComponent<Mirror>().Reflect(transform.position, hit, pMain.startColor.color);
             }
         }
     }
