@@ -53,16 +53,17 @@ public class PhysicalLight : MonoBehaviour
                 box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }
-            else if (hit.transform.tag == "Mirror" && hit.transform.gameObject != mirror)
+            else if (hit.transform.tag == "Mirror")
             {
                 mirror = hit.transform.gameObject;
                 mirror.GetComponent<Mirror>().Reflect(this, transform.position, hit, pMain.startColor.color);
             }
             else if (hit.transform.tag != "Mirror" && mirror != null)
             {
-                mirror.GetComponent<Mirror>().RemoveSourceLight();
-                mirror.GetComponent<Mirror>().cleanList();
-                mirror.GetComponent<Mirror>().Setup();
+                Mirror mr = mirror.GetComponent<Mirror>();
+                mr.cleanList();
+                mr.Setup();
+                mr.Reflect();
                 mirror = null;
                 Debug.Log("clean");
             }

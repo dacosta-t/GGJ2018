@@ -178,7 +178,7 @@ public class Mirror : MonoBehaviour
 
     public void Setup()
     {
-        reflectedLightParticle = null;
+        RemoveReflectedLight();
 
         currentOrigin = Vector3.zero;
 
@@ -188,10 +188,9 @@ public class Mirror : MonoBehaviour
         currentRotation = Quaternion.identity;
 
 
-        sourceLight = null;
     }
 
-    private void Reflect()
+    public void Reflect()
     {
         Reflect(sourceLight, currentOrigin, currentHit, currentColor);
     }
@@ -200,7 +199,6 @@ public class Mirror : MonoBehaviour
     {
         LinkedListNode<Mirror> last = mirrors.Find(this);
         LinkedListNode<Mirror> next = last.Next;
-        Destroy(last.Value.reflectedLightParticle);
         while (next.Next != null)
         {
             next.Value.sourceLight = null;
@@ -211,30 +209,13 @@ public class Mirror : MonoBehaviour
         }
     }
 
+    public void RemoveReflectedLight()
+    {
+        Destroy(reflectedLightParticle);
+    }
+
     public void RemoveSourceLight()
     {
         sourceLight = null;
-    }
-
-    public static void clean()
-    {
-        LinkedListNode<Mirror> node = mirrors.Last;
-        while (node != null)
-        {
-            Debug.Log("hello");
-            Debug.Log(node.Value.sourceLight);
-            if (node.Value.sourceLight == null)
-            {
-                Destroy(node.Value.reflectedLightParticle);
-                LinkedListNode<Mirror> temp = node.Previous;
-                mirrors.Remove(node);
-                node = temp;
-            }
-            else
-            {
-                Debug.Log("break");
-                break;
-            }
-        }
     }
 }
