@@ -10,7 +10,7 @@ public class PhysicalLight : MonoBehaviour
     private ParticleSystem.MainModule pMain;
     private ParticleSystem.EmissionModule pEmission;
     private GameObject mirror;
-	
+
     [HideInInspector]
     public GameObject box;
     // Use this for initialization
@@ -34,24 +34,37 @@ public class PhysicalLight : MonoBehaviour
             pEmission.rateOverTime = factor * 10;
 
             // Trigger hit events
-            if (hit.transform.tag == "Goal") {
+            if (hit.transform.tag == "Goal")
+            {
                 hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
             }
 
-            if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
-                if (box != null) {
+            if (hit.transform.tag == "Box" && hit.transform.gameObject != box)
+            {
+                if (box != null)
+                {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 }
                 box = hit.transform.gameObject;
                 box.GetComponent<Box>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
-            } else if (hit.transform.tag != "Box" && box != null) {
+            }
+            else if (hit.transform.tag != "Box" && box != null)
+            {
                 box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }
-            if (hit.transform.tag == "Mirror")
+            else if (hit.transform.tag == "Mirror" && hit.transform.gameObject != mirror)
             {
                 mirror = hit.transform.gameObject;
-                mirror.GetComponent<Mirror>().Reflect(transform.position, hit, pMain.startColor.color);
+                mirror.GetComponent<Mirror>().Reflect(this, transform.position, hit, pMain.startColor.color);
+            }
+            else if (hit.transform.tag != "Mirror" && mirror != null)
+            {
+                mirror.GetComponent<Mirror>().RemoveSourceLight();
+                mirror.GetComponent<Mirror>().cleanList();
+                mirror.GetComponent<Mirror>().Setup();
+                mirror = null;
+                Debug.Log("clean");
             }
         }
     }
