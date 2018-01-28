@@ -5,19 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour {
 
-    public Color goalRequirement;
-    public string nextLevel;
+    private GoalController goalController;
+    public bool isComplete;
 
-	public void CheckGoal(Color lightColour)
-    {
-        if (lightColour.Equals(goalRequirement))
-        {
-            // Load different stage
-            print("Goal met");
-            if (nextLevel != "")
-            {
-                SceneManager.LoadScene(nextLevel);
-            }
+    public Color goalRequirement;
+
+    void Start() {
+        goalController = GameObject.Find("GoalController").GetComponent<GoalController>();
+        goalController.addGoal(this);
+        isComplete = false;
+    }
+
+    public void CheckGoal(Color colour) {
+        SetGoal(colour);
+        if (isComplete) {
+            goalController.CheckGoals(colour);
         }
+    }
+
+    public void SetGoal(Color lightColour) {
+        isComplete = lightColour.Equals(goalRequirement);
+        print(isComplete);
     }
 }

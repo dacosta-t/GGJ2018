@@ -29,13 +29,10 @@ public class PhysicalLight : MonoBehaviour {
             pEmission.rateOverTime = factor * 10;
 
             // Trigger hit events
-            if (hit.transform.tag == "Goal")
-            {
+            if (hit.transform.tag == "Goal") {
                 hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
-            }
-            else if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
-                if (box != null)
-                {
+            } else if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
+                if (box != null) {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 }
                 box = hit.transform.gameObject;
