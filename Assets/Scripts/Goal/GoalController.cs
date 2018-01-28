@@ -26,9 +26,28 @@ public class GoalController : MonoBehaviour {
             }
         }
 
-        print("Completed level!");
-        if (nextLevel != "") {
-            SceneManager.LoadScene(nextLevel);
-        }
+		// Stage Clear Panel
+		GameObject canvas = GameObject.Find ("Canvas");
+		Transform tStageClearedPanel = canvas.transform.GetChild (2);
+		if (tStageClearedPanel != null) 
+		{
+			tStageClearedPanel.gameObject.SetActive (true);
+			tStageClearedPanel.GetComponent<GlowImageOutline> ().enabled = true;
+
+		}
+
+		StartCoroutine ("WaitForSecondToChangeScene");
     }
+
+	IEnumerator WaitForSecondToChangeScene() {
+		yield return new WaitForSeconds(4);
+		SendToNextScene();
+	}
+
+	public void SendToNextScene(){
+		print("Completed level!");
+		if (nextLevel != "") {
+			SceneManager.LoadScene(nextLevel);
+		}
+	}
 }
