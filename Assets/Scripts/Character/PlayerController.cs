@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
 
+	public GameObject collidedObject;
 
 	void Start ()
 	{
@@ -31,34 +32,25 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	//TODO Grab function
-	private void Grab()
-	{
-		
-	}
-
-	//TODO Release function
-	private void Release()
-	{
-		
-	}
-
 	void FixedUpdate ()
 	{
 		if (Input.GetKey (KeyCode.E)) 
 		{
-			if (isGrabbing)
+			if (!isGrabbing)
 			{
-				Release ();
-			}
-			else
-			{
-				Grab ();
+				Grab (collidedObject);
 			}
 
-			isGrabbing = !isGrabbing;
 		}
-		
+
+		if (Input.GetKey (KeyCode.C)) 
+		{
+			if (isGrabbing)
+			{
+				Release (collidedObject);
+			}
+		}
+
 		AnimateCharacter ();
 		Move();
 		Rotate ();
@@ -117,9 +109,9 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetKey(KeyCode.E)) 
 		{
 			if (isGrabbing) {
-				// TODO Release animation play
+				GetComponent<Animator> ().SetTrigger ("Push");	
 			} else {
-				//TODO GRAB animation play
+				GetComponent<Animator> ().SetTrigger ("Push");	
 			}
 		} 
 
@@ -140,11 +132,10 @@ public class PlayerController : MonoBehaviour {
 				{
 					GetComponent<Animator> ().SetTrigger ("Push");	
 				}
-				//TODO pulling
 				else if (Input.GetKey (KeyCode.S)
 					|| Input.GetKey(KeyCode.DownArrow))
 				{
-//					GetComponent<Animator> ().SetTrigger ("Pull");
+					GetComponent<Animator> ().SetTrigger ("Pull");
 				}
 			} 
 			else
@@ -155,5 +146,68 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	
+	void OnTriggerEnter(Collider other)
+	{
+		collidedObject = other.gameObject;
+	}
+
+	void OnTriggerExit(Collider other)
+	{		
+		collidedObject = null;
+	}
+
+	private void Grab(GameObject anObject)
+	{
+		if (anObject != null)
+		{
+
+			Debug.Log ("Grabbed " + anObject.name);
+			if (anObject.tag == "Box"
+				&& transform.name == "Character01")
+			{
+				anObject.transform.parent = transform;
+				anObject.transform.localPosition  = new Vector3 (0.0f, 1.0f, 1.6f);
+				GetComponent<BoxCollider> ().enabled = false;
+				isGrabbing = true;
+			}
+
+			if (anObject.tag == "Mirror"
+			&& transform.name == "Character01")
+			{
+				//TODO Mirror: grab and make it Rotate
+				GetComponent<BoxCollider> ().enabled = false;
+				isGrabbing = true;
+			}
+		}
+	}
+
+	//TODO Release function
+	private void Release(GameObject anObject)
+	{
+		if (anObject != null)
+		{
+			Debug.Log ("Released " + anObject.name);
+			if (anObject.tag == "Box"
+			&& transform.name == "Character01")
+			{
+				anObject.transform.parent = null;
+				isGrabbing = false;
+			}
+
+			if (anObject.tag == "Mirror"
+			&& transform.name == "Character01")
+			{
+				//TODO Mirror: release
+				anObject.transform.parent = null;
+				isGrabbing = false;
+			}
+
+			GetComponent<BoxCollider> ().enabled = true;
+			collidedObject = null;
+
+
+		}
+
+	}
+
 }

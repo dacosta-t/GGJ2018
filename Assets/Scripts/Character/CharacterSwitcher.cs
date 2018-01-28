@@ -125,7 +125,7 @@ public class CharacterSwitcher : MonoBehaviour {
 		}
 	}
 
-	// TODO bug fix camera positioning when swithching
+
 	private void SetCameraTargetTo(int index)
 	{
 		if (index != currentCharacterIndex) 
@@ -143,7 +143,6 @@ public class CharacterSwitcher : MonoBehaviour {
 			// get the switched character location
 			Vector3 newParentLocation = characters [index].transform.position;
 			Quaternion newParentRotation = characters [index].transform.rotation;
-
 
 			// roates the camera to be new parent camera
 			camera.rotation = Quaternion.Euler (newParentRotation.eulerAngles) * Quaternion.Euler (new Vector3 (45, 0, 0));

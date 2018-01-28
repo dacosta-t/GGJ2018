@@ -417,8 +417,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   mouseSensitivity: 60
-  delay: 0
-  lastPlayedTime: 0
   isGrabbing: 0
 --- !u!136 &123913623
 CapsuleCollider:
@@ -2290,9 +2288,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 950149569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9edd7da3e8e4c38974865e90621185, type: 3}
+  m_Script: {fileID: 11500000, guid: 998c25f170c1c484284cc88551e45b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  box: {fileID: 0}
 --- !u!1 &988068851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,8 +2536,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   mouseSensitivity: 60
-  delay: 0
-  lastPlayedTime: 0
   isGrabbing: 0
 --- !u!136 &1065203460
 CapsuleCollider:
