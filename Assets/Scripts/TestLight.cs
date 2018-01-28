@@ -28,7 +28,7 @@ public class TestLight : MonoBehaviour
         {
             Mirror mirror = shootHit.collider.GetComponent<Mirror>();
             //Debug.Log("hello", shootHit.collider);
-            mirror.Reflect(transform.position, shootHit, Color.white);
+            //mirror.Reflect(transform.position, shootHit, Color.white);
         }
     }
 }
