@@ -17,11 +17,9 @@ public class PhysicalLight : MonoBehaviour {
         pEmission = pSys.emission;
 	}
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-        {
+        if (Physics.Raycast(transform.position, transform.forward, out hit)) {
             // Draw light beam
             distance = hit.distance;
             float factor = Mathf.Sqrt(distance);
