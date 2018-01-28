@@ -178,7 +178,7 @@ public class Mirror : MonoBehaviour
 
     public void Setup()
     {
-        reflectedLightParticle = null;
+        RemoveReflectedLight();
 
         currentOrigin = Vector3.zero;
 
@@ -188,10 +188,9 @@ public class Mirror : MonoBehaviour
         currentRotation = Quaternion.identity;
 
 
-        sourceLight = null;
     }
 
-    private void Reflect()
+    public void Reflect()
     {
         Reflect(sourceLight, currentOrigin, currentHit, currentColor);
     }
