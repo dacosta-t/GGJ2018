@@ -30,6 +30,8 @@ public class Mirror : MonoBehaviour
 
     RaycastHit shootHit;
 
+    static LinkedList<Mirror> mirrors = new LinkedList<Mirror>();
+
     void Awake()
     {
         currentOrigin = Vector3.zero;
@@ -55,26 +57,17 @@ public class Mirror : MonoBehaviour
 
     }
 
-    // Rotate mirror to the right
-    public void RotateRight()
+    // Rotate mirror 
+    public void Rotate()
     {
         if (grabbed)
         {
             transform.Rotate(0, rotationSpeed, 0);
             mirrorUpRightOrientation = !mirrorUpRightOrientation;
-
+            cleanList();
         }
     }
 
-    // Rotate mirror to the left
-    public void RotateLeft()
-    {
-        if (grabbed)
-        {
-            transform.Rotate(0, -rotationSpeed, 0);
-            mirrorUpRightOrientation = !mirrorUpRightOrientation;
-        }
-    }
 
     // Reflect light off the surface of the mirror
     //      Instantiates new light when light origin and hit point changes
@@ -117,6 +110,7 @@ public class Mirror : MonoBehaviour
             currentHitPoint = hit.point;
             currentOrigin = origin;
             currentColor = color;
+            mirrors.AddLast(this);
             shootRay.origin = transform.position;
             shootRay.direction = Vector3.right;
             if (Mathf.Abs(deltaZ) >= Mathf.Abs(deltaX))
@@ -149,6 +143,20 @@ public class Mirror : MonoBehaviour
                     mirror.Reflect(hit.point, shootHit, color);
                 }
             }
+        }
+    }
+
+    public void cleanList()
+    {
+        LinkedListNode<Mirror> last = mirrors.Find(this);
+        LinkedListNode<Mirror> next = last.Next;
+
+        while (next.Next != null)
+        {
+            Destroy(next.Next.Value.reflectedLightParticle);
+            LinkedListNode<Mirror> temp = next.Next;
+            mirrors.Remove(next);
+            next = temp;
         }
     }
 }
