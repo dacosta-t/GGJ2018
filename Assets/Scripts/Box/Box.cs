@@ -26,10 +26,11 @@ public class Box : MonoBehaviour {
     }
 
     private void LoadFaces() {
-        BoxCollider collider = GetComponent<BoxCollider>();
+        //BoxCollider collider = GetComponent<BoxCollider>();
+        SphereCollider collider = GetComponent<SphereCollider>();
         BoxFace xPos = new BoxFace();
         xPos.rotation = 270;
-        xPos.xOff = collider.size.y / 2;
+        xPos.xOff = collider.radius;
         xPos.zOff = 0;
         xPos.index = 0;
         faces[0] = xPos;
@@ -44,7 +45,7 @@ public class Box : MonoBehaviour {
         BoxFace zPos = new BoxFace();
         zPos.rotation = 180;
         zPos.xOff = 0;
-        zPos.zOff = collider.size.y / 2;
+        zPos.zOff = collider.radius;
         zPos.index = 2;
         faces[2] = zPos;
 
@@ -166,9 +167,10 @@ public class Box : MonoBehaviour {
 
     public void OnMissChain(Vector3 rotation)
     {
-        if (FindOppositeFace(rotation.y).light.box != null)
+        BoxFace opFace = FindOppositeFace(rotation.y);
+        if (opFace.light != null && opFace.light.box != null)
         {
-            FindOppositeFace(rotation.y).light.box.GetComponent<Box>().OnMissChain(rotation);
+            opFace.light.box.GetComponent<Box>().OnMissChain(rotation);
         }
         BoxFace inFace = FindFace(rotation.y);
         if (faces[inFace.index].isInput)
