@@ -52,10 +52,10 @@ public class CharacterSwitcher : MonoBehaviour {
 		{
 
 			if (index != currentCharacterIndex) {
-				// Deactivate current character
-				DeactivateCharacter (currentCharacterIndex);
 				// Set camera to the new character 
 				SetCameraTargetTo (index);
+				// Deactivate current character
+				DeactivateCharacter (currentCharacterIndex);
 				// Activate the new character
 				ActivateCharacter (index);
 				// Update current character index to be new character
@@ -137,7 +137,8 @@ public class CharacterSwitcher : MonoBehaviour {
 			Transform newParentTransform = characters [index].transform;
 
 			// attach camera to switched character
-			camera.SetParent (newParentTransform);
+			// camera.SetParent (newParentTransform);
+			camera.parent = newParentTransform;
 
 			// get the switched character location
 			Vector3 newParentLocation = characters [index].transform.position;
