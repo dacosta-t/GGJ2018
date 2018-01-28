@@ -81,7 +81,7 @@ public class MirrorBox : MonoBehaviour
     public BoxFace FindOutFace(float inputLightYRotation)
     {
         int mirrorRotation = (int)Mathf.Round(transform.eulerAngles.y);
-        if (mirrorRotation == 45)
+        if (mirrorRotation == 0)
         {
             if (inputLightYRotation == 0)
             {
@@ -105,7 +105,7 @@ public class MirrorBox : MonoBehaviour
                 return new BoxFace();
             }
         }
-        else if (mirrorRotation == 135)
+        else if (mirrorRotation == 90)
         {
             if (inputLightYRotation == 0)
             {
@@ -182,17 +182,7 @@ public class MirrorBox : MonoBehaviour
         BoxFace outFace = FindOutFace(rotation.y);
         if (!faces[outFace.index].isInput || faces[outFace.index].light == null)
         {
-
-            Vector3 lightPos;
-            if (faces[outFace.index].xOff == 0)
-            {
-                lightPos = new Vector3(transform.position.x + (faces[outFace.index].zOff * 2), source.transform.position.y, transform.position.z + (faces[outFace.index].zOff * 2));
-            }
-            else
-            {
-                lightPos = new Vector3(transform.position.x + (faces[outFace.index].xOff * 2), source.transform.position.y, source.transform.position.z + (faces[outFace.index].xOff * 2));
-            }
-            GameObject rayLight = Instantiate(inputLight, lightPos, Quaternion.Euler(new Vector3(0, FindOppositeFace(outFace.rotation).rotation, 0)));
+            GameObject rayLight = Instantiate(inputLight, transform.position, Quaternion.Euler(new Vector3(0, outFace.rotation, 0)));
             ParticleSystem light = rayLight.GetComponent<ParticleSystem>();
             ParticleSystem.MainModule lightMain = light.main;
             lightMain.startColor = colour;

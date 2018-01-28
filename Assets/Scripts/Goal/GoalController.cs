@@ -6,16 +6,11 @@ using UnityEngine.UI;
 
 public class GoalController : MonoBehaviour {
 
-    private List<Goal> goals;
+    private List<Goal> goals = new List<Goal>();
     public string nextLevel;
-
-    private void Start() {
-        goals = new List<Goal>();
-    }
 
     public void addGoal(Goal goal) {
         goals.Add(goal);
-        print(goals.Count);
     }
 
     public void CheckGoals(Color colour) {
