@@ -24,9 +24,12 @@ public class Mirror : MonoBehaviour
     // Current point of contact of light on mirror
     Vector3 currentHitPoint;
 
+    Color currentColor;
+
     Ray shootRay = new Ray();
 
     RaycastHit shootHit;
+
     void Awake()
     {
         currentOrigin = Vector3.zero;
@@ -39,8 +42,9 @@ public class Mirror : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
     }
 
     // Rotate mirror to the right
@@ -49,6 +53,7 @@ public class Mirror : MonoBehaviour
         if (grabbed)
         {
             transform.Rotate(0, rotationSpeed, 0);
+            mirrorUpLeftOrientation = !mirrorUpLeftOrientation;
         }
     }
 
@@ -58,72 +63,83 @@ public class Mirror : MonoBehaviour
         if (grabbed)
         {
             transform.Rotate(0, -rotationSpeed, 0);
+            mirrorUpLeftOrientation = !mirrorUpLeftOrientation;
         }
     }
 
     // Reflect light off the surface of the mirror
     //      Instantiates new light when light origin and hit point changes
-    public void Reflect(Vector3 origin, RaycastHit hit)
+    public void Reflect(Vector3 origin, RaycastHit hit, Color color)
     {
         float deltaZ = hit.point.z - origin.z;
         float deltaX = hit.point.x - origin.x;
-
-        Destroy(reflectedLightParticle);
-        if (Mathf.Abs(deltaZ) > Mathf.Abs(deltaX))
+        if (!currentHitPoint.Equals(hit.point) || !currentOrigin.Equals(origin) || !currentColor.Equals(color))
         {
-            if (deltaZ > 0)
+            Destroy(reflectedLightParticle);
+            if (Mathf.Abs(deltaZ) >= Mathf.Abs(deltaX))
             {
-                reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
-                    mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.right) : Quaternion.LookRotation(Vector3.left));
+                if (deltaZ >= 0)
+                {
+                    reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
+                        mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.right) : Quaternion.LookRotation(Vector3.left));
+                }
+                else
+                {
+                    reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
+                        mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.left) : Quaternion.LookRotation(Vector3.right));
+                }
             }
             else
             {
-                reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
-                    mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.left) : Quaternion.LookRotation(Vector3.right));
+                if (deltaX >= 0)
+                {
+                    reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
+                        mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.forward) : Quaternion.LookRotation(Vector3.back));
+                }
+                else
+                {
+                    reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
+                        mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.back) : Quaternion.LookRotation(Vector3.forward));
+                }
             }
-        }
-        else
-        {
-            if (deltaX > 0)
+            ParticleSystem light = reflectedLightParticle.GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule lightMain = light.main;
+            lightMain.startColor = color;
+            currentHitPoint = hit.point;
+            currentOrigin = origin;
+            currentColor = color;
+            shootRay.origin = transform.position;
+            shootRay.direction = Vector3.right;
+            if (Mathf.Abs(deltaZ) >= Mathf.Abs(deltaX))
             {
-                reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
-                    mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.forward) : Quaternion.LookRotation(Vector3.back));
+                if (deltaZ >= 0)
+                {
+                    if (mirrorUpLeftOrientation) shootRay.direction = Vector3.right; else shootRay.direction = Vector3.left;
+                }
+                else
+                {
+                    if (mirrorUpLeftOrientation) shootRay.direction = Vector3.left; else shootRay.direction = Vector3.right;
+                }
             }
             else
             {
-                reflectedLightParticle = Instantiate(lightParticlePrefab, hit.point,
-                    mirrorUpLeftOrientation ? Quaternion.LookRotation(Vector3.back) : Quaternion.LookRotation(Vector3.forward));
+                if (deltaX >= 0)
+                {
+                    if (mirrorUpLeftOrientation) shootRay.direction = Vector3.forward; else shootRay.direction = Vector3.back;
+                }
+                else
+                {
+                    if (mirrorUpLeftOrientation) shootRay.direction = Vector3.back; else shootRay.direction = Vector3.forward;
+                }
             }
-        }
-
-        shootRay.origin = transform.position;
-        shootRay.direction = Vector3.right;
-        if (Mathf.Abs(deltaZ) > Mathf.Abs(deltaX))
-        {
-            if (deltaZ > 0)
+            if (Physics.Raycast(shootRay, out shootHit))
             {
-                if (mirrorUpLeftOrientation) shootRay.direction = Vector3.right; else shootRay.direction = Vector3.left;
+                Mirror mirror = shootHit.collider.GetComponent<Mirror>();
+                if (mirror != null)
+                {
+                    mirror.Reflect(hit.point, shootHit, color);
+                }
             }
-            else
-            {
-                if (mirrorUpLeftOrientation) shootRay.direction = Vector3.left; else shootRay.direction = Vector3.right;
-            }
-        }
-        else
-        {
-            if (deltaX > 0)
-            {
-                if (mirrorUpLeftOrientation) shootRay.direction = Vector3.forward; else shootRay.direction = Vector3.back;
-            }
-            else
-            {
-                if (mirrorUpLeftOrientation) shootRay.direction = Vector3.back; else shootRay.direction = Vector3.forward;
-            }
-        }
-        if (Physics.Raycast(shootRay, out shootHit))
-        {
-            Mirror mirror = shootHit.collider.GetComponent<Mirror>();
-            mirror.Reflect(hit.point, shootHit);
         }
     }
 }
