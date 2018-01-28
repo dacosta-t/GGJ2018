@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23951630762967028}
   - component: {fileID: 95784229822310602}
   - component: {fileID: 54218067620310406}
-  - component: {fileID: 65485063344048896}
   - component: {fileID: 114193145442966782}
+  - component: {fileID: 135182215733983270}
   m_Layer: 0
   m_Name: RedBox
   m_TagString: Box
@@ -101,18 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &65485063344048896
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1757105714340062}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95784229822310602
 Animator:
   serializedVersion: 3
@@ -143,3 +131,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputLight: {fileID: 1239730674912222, guid: 1b6873b8920090d45a74d833ceaf38cf, type: 2}
   curColour: {r: 1, g: 0, b: 0, a: 0}
+--- !u!135 &135182215733983270
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1757105714340062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.002456
+  m_Center: {x: 0, y: 0, z: 0}
