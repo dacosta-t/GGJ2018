@@ -30,7 +30,7 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	void Start()
 	{	
-		currentCharacterIndex = 0;
+		currentCharacterIndex = 1;
 		DeactivateCharacter (GetIndexOfTheCharacter ("Character02"));
 		SwitchCharacter (GetIndexOfTheCharacter ("Character01"));
 	}
@@ -120,8 +120,7 @@ public class CharacterSwitcher : MonoBehaviour {
 
 	private void UpdateCurrentCharacterIndex(int index)
 	{
-		if (index != currentCharacterIndex
-		   && index < characters.Length)
+		if (index < characters.Length)
 		{
 			this.currentCharacterIndex = index;
 		}
