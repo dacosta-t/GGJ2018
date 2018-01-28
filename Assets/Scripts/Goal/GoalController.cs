@@ -26,9 +26,41 @@ public class GoalController : MonoBehaviour {
             }
         }
 
-        print("Completed level!");
-        if (nextLevel != "") {
-            SceneManager.LoadScene(nextLevel);
-        }
+		// Stage Cleared Panel
+		GameObject canvas = GameObject.Find ("Canvas");
+		Transform tStageClearedPanel = canvas.transform.GetChild (2);
+		if (tStageClearedPanel != null) 
+		{
+			//activate the panel
+			tStageClearedPanel.gameObject.SetActive (true);
+			tStageClearedPanel.GetComponent<GlowImageOutline> ().enabled = true;
+
+			// references to character
+			GameObject[] characters = GameObject.FindGameObjectsWithTag ("Player");
+
+			//set animation
+			foreach (GameObject character in characters) 
+			{
+				character.GetComponent<Animator> ().SetTrigger ("Push");
+				character.GetComponent<Animator> ().SetTrigger ("Pull");
+				character.GetComponent<Animator> ().SetTrigger ("Push");
+				character.GetComponent<Animator> ().SetTrigger ("Pull");
+			}
+		}
+
+		// pausing tihngwith coroutine
+		StartCoroutine ("WaitForSecondToChangeScene");
     }
+
+	IEnumerator WaitForSecondToChangeScene() {
+		yield return new WaitForSeconds(4);
+		SendToNextScene();
+	}
+
+	public void SendToNextScene(){
+		print("Completed level!");
+		if (nextLevel != "") {
+			SceneManager.LoadScene(nextLevel);
+		}
+	}
 }
