@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 				&& transform.name == "Character01")
 			{
 				anObject.transform.parent = transform;
-				anObject.transform.localPosition  = new Vector3 (0.0f, 1.0f, 1.6f);
+				anObject.transform.localPosition  = new Vector3 (0.0f, 2.0f, 2.6f);
 				GetComponent<BoxCollider> ().enabled = false;
 				isGrabbing = true;
 			}
