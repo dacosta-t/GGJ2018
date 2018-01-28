@@ -9,8 +9,6 @@ public class MirrorBox : MonoBehaviour
     public GameObject inputLight;
     public Color curColour;
 
-    //private PhysicalLight outputLight;
-
     // Use this for initialization
     void Start()
     {
@@ -20,11 +18,10 @@ public class MirrorBox : MonoBehaviour
 
     private void LoadFaces()
     {
-        //BoxCollider collider = GetComponent<BoxCollider>();
-        SphereCollider collider = GetComponent<SphereCollider>();
+        BoxCollider collider = GetComponent<BoxCollider>();
         BoxFace xPos = new BoxFace();
         xPos.rotation = 270;
-        xPos.xOff = collider.radius;
+        xPos.xOff = collider.size.z / 2;
         xPos.zOff = 0;
         xPos.index = 0;
         faces[0] = xPos;
@@ -39,7 +36,7 @@ public class MirrorBox : MonoBehaviour
         BoxFace zPos = new BoxFace();
         zPos.rotation = 180;
         zPos.xOff = 0;
-        zPos.zOff = collider.radius;
+        zPos.zOff = collider.size.z / 2;
         zPos.index = 2;
         faces[2] = zPos;
 
@@ -155,17 +152,6 @@ public class MirrorBox : MonoBehaviour
                 ParticleSystem.MainModule pMain = pSys.main;
                 CreateLight(faces[i].light, pMain.startColor.color, new Vector3(0, faces[i].rotation, 0));
             }
-            /*else if (faces[i].isInput && faces[i].light != null && outFace.light != null && !outFace.isInput)
-            {
-                if (faces[outFace.index].xOff == 0)
-                {
-                    faces[outFace.index].light.transform.position = new Vector3(faces[i].light.transform.position.x, faces[i].light.transform.position.y, transform.position.z + faces[outFace.index].zOff);
-                }
-                else
-                {
-                    faces[outFace.index].light.transform.position = new Vector3(transform.position.x + faces[outFace.index].xOff, faces[i].light.transform.position.y, faces[i].light.transform.position.z);
-                }
-            }*/
         }
     }
 
@@ -195,11 +181,9 @@ public class MirrorBox : MonoBehaviour
             if (faces[outFace.index].xOff == 0)
             {
                 lightPos = new Vector3(transform.position.x + faces[outFace.index].zOff, source.transform.position.y, transform.position.z + faces[outFace.index].zOff);
-                //lightPos = new Vector3(transform.position.x, source.transform.position.y, transform.position.z);
             }
             else
             {
-                //lightPos = new Vector3(transform.position.x, source.transform.position.y, transform.position.z);
                 lightPos = new Vector3(transform.position.x + faces[outFace.index].xOff, source.transform.position.y, source.transform.position.z);
             }
             GameObject rayLight = Instantiate(inputLight, lightPos, Quaternion.Euler(new Vector3(0, FindOppositeFace(outFace.rotation).rotation, 0)));
@@ -240,7 +224,7 @@ public class MirrorBox : MonoBehaviour
             faces[inFace.index].isInput = false;
             faces[inFace.index].light = null;
             BoxFace outFace = FindOutFace(rotation.y);
-            if (!faces[outFace.index].isInput)// && faces[outFace.index].light != null)
+            if (!faces[outFace.index].isInput)
             {
                 Destroy(faces[outFace.index].light.gameObject);
                 faces[outFace.index].light = null;
