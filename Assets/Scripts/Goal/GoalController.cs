@@ -26,16 +26,29 @@ public class GoalController : MonoBehaviour {
             }
         }
 
-		// Stage Clear Panel
+		// Stage Cleared Panel
 		GameObject canvas = GameObject.Find ("Canvas");
 		Transform tStageClearedPanel = canvas.transform.GetChild (2);
 		if (tStageClearedPanel != null) 
 		{
+			//activate the panel
 			tStageClearedPanel.gameObject.SetActive (true);
 			tStageClearedPanel.GetComponent<GlowImageOutline> ().enabled = true;
 
+			// references to character
+			GameObject[] characters = GameObject.FindGameObjectsWithTag ("Player");
+
+			//set animation
+			foreach (GameObject character in characters) 
+			{
+				character.GetComponent<Animator> ().SetTrigger ("Push");
+				character.GetComponent<Animator> ().SetTrigger ("Pull");
+				character.GetComponent<Animator> ().SetTrigger ("Push");
+				character.GetComponent<Animator> ().SetTrigger ("Pull");
+			}
 		}
 
+		// pausing tihngwith coroutine
 		StartCoroutine ("WaitForSecondToChangeScene");
     }
 
