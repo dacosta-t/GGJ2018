@@ -9,7 +9,7 @@ public class PhysicalLight : MonoBehaviour
     private ParticleSystem pSys;
     private ParticleSystem.MainModule pMain;
     private ParticleSystem.EmissionModule pEmission;
-	
+    
     [HideInInspector]
     public GameObject box;
     [HideInInspector]
@@ -36,17 +36,22 @@ public class PhysicalLight : MonoBehaviour
             pMain.maxParticles = 1000 + (int)distance;
 
             // Trigger hit events
-            if (hit.transform.tag == "Goal") {
+            if (hit.transform.tag == "Goal")
+            {
                 hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
             }
 
-            if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
-                if (box != null) {
+            if (hit.transform.tag == "Box" && hit.transform.gameObject != box)
+            {
+                if (box != null)
+                {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 }
                 box = hit.transform.gameObject;
                 box.GetComponent<Box>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
-            } else if (hit.transform.tag != "Box" && box != null) {
+            }
+            else if (hit.transform.tag != "Box" && box != null)
+            {
                 box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }

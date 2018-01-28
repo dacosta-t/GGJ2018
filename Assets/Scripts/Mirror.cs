@@ -30,6 +30,8 @@ public class Mirror : MonoBehaviour
 
     Color currentColor;
 
+    PhysicalLight sourceLight = null;
+
     Ray shootRay = new Ray();
 
     RaycastHit shootHit;
@@ -96,7 +98,7 @@ public class Mirror : MonoBehaviour
 
     // Reflect light off the surface of the mirror
     //      Instantiates new light when light origin and hit point changes
-    public void Reflect(Vector3 origin, RaycastHit hit, Color color)
+    public void Reflect(PhysicalLight source, Vector3 origin, RaycastHit hit, Color color)
     {
         float deltaZ = hit.point.z - origin.z;
         float deltaX = hit.point.x - origin.x;
@@ -131,12 +133,14 @@ public class Mirror : MonoBehaviour
             }
             ParticleSystem light = reflectedLightParticle.GetComponent<ParticleSystem>();
             ParticleSystem.MainModule lightMain = light.main;
+            sourceLight = source;
             lightMain.startColor = color;
             currentHitPoint = hit.point;
             currentHit = hit;
             currentOrigin = origin;
             currentColor = color;
             mirrors.AddLast(this);
+            shootRay = new Ray();
             shootRay.origin = transform.position;
             shootRay.direction = Vector3.right;
             if (Mathf.Abs(deltaZ) >= Mathf.Abs(deltaX))
@@ -166,30 +170,52 @@ public class Mirror : MonoBehaviour
                 Mirror mirror = shootHit.collider.GetComponent<Mirror>();
                 if (mirror != null)
                 {
-                    mirror.Reflect(hit.point, shootHit, color);
+                    mirror.Reflect(source, hit.point, shootHit, color);
                 }
             }
         }
     }
 
-    private void Reflect()
+    public void Setup()
     {
-        Reflect(currentOrigin, currentHit, currentColor);
+        RemoveReflectedLight();
+
+        currentOrigin = Vector3.zero;
+
+        currentHitPoint = Vector3.zero;
+
+
+        currentRotation = Quaternion.identity;
+
+
+    }
+
+    public void Reflect()
+    {
+        Reflect(sourceLight, currentOrigin, currentHit, currentColor);
     }
 
     public void cleanList()
     {
         LinkedListNode<Mirror> last = mirrors.Find(this);
         LinkedListNode<Mirror> next = last.Next;
-
         while (next.Next != null)
         {
-            Destroy(next.Next.Value.reflectedLightParticle);
+            next.Value.sourceLight = null;
+            Destroy(next.Value.reflectedLightParticle);
             LinkedListNode<Mirror> temp = next.Next;
             mirrors.Remove(next);
             next = temp;
         }
-        Mirror mr = last.Value;
-        mr.Reflect();
+    }
+
+    public void RemoveReflectedLight()
+    {
+        Destroy(reflectedLightParticle);
+    }
+
+    public void RemoveSourceLight()
+    {
+        sourceLight = null;
     }
 }
