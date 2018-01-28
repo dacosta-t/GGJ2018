@@ -33,7 +33,7 @@ public class PhysicalLight : MonoBehaviour {
             {
                 hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
             }
-            else if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
+            if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
                 if (box != null)
                 {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
@@ -41,7 +41,7 @@ public class PhysicalLight : MonoBehaviour {
                 box = hit.transform.gameObject;
                 box.GetComponent<Box>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
             } else if (hit.transform.tag != "Box" && box != null) {
-                box.GetComponent<Box>().OnMiss(transform.eulerAngles);
+                box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }
         }

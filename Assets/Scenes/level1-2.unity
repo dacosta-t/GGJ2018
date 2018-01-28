@@ -1413,6 +1413,21 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 54695318058977170, guid: 75b60f4e149c148159131aed74dfc5ef,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54695318058977170, guid: 75b60f4e149c148159131aed74dfc5ef,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54695318058977170, guid: 75b60f4e149c148159131aed74dfc5ef,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75b60f4e149c148159131aed74dfc5ef, type: 2}
   m_IsPrefabParent: 0
