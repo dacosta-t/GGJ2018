@@ -9,10 +9,11 @@ public class PhysicalLight : MonoBehaviour
     private ParticleSystem pSys;
     private ParticleSystem.MainModule pMain;
     private ParticleSystem.EmissionModule pEmission;
-    private GameObject mirror;
-
+    
     [HideInInspector]
     public GameObject box;
+    [HideInInspector]
+    public GameObject mirror;
     // Use this for initialization
     void Start()
     {
@@ -32,6 +33,7 @@ public class PhysicalLight : MonoBehaviour
             pMain.startLifetime = factor;
             pMain.startSpeed = factor;
             pEmission.rateOverTime = factor * 10;
+            pMain.maxParticles = 1000 + (int)distance;
 
             // Trigger hit events
             if (hit.transform.tag == "Goal")
@@ -53,19 +55,20 @@ public class PhysicalLight : MonoBehaviour
                 box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
                 box = null;
             }
-            else if (hit.transform.tag == "Mirror")
+
+            if (hit.transform.tag == "Mirror" && hit.transform.gameObject != mirror)
             {
+                if (mirror != null)
+                {
+                    mirror.GetComponent<MirrorBox>().OnMissChain(transform.eulerAngles);
+                }
                 mirror = hit.transform.gameObject;
-                mirror.GetComponent<Mirror>().Reflect(this, transform.position, hit, pMain.startColor.color);
+                mirror.GetComponent<MirrorBox>().OnHit(this, pMain.startColor.color, transform.eulerAngles);
             }
             else if (hit.transform.tag != "Mirror" && mirror != null)
             {
-                Mirror mr = mirror.GetComponent<Mirror>();
-                mr.cleanList();
-                mr.Setup();
-                mr.Reflect();
+                mirror.GetComponent<MirrorBox>().OnMissChain(transform.eulerAngles);
                 mirror = null;
-                Debug.Log("clean");
             }
         }
     }
