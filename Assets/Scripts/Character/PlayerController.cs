@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 	void Start ()
 	{
 		speed = SPEED_REGULAR;
-		mouseSensitivity = 30.0f;
+		mouseSensitivity = 5.0f;
 		isGrabbing = false;
 		rb = GetComponent<Rigidbody>();
 	}
