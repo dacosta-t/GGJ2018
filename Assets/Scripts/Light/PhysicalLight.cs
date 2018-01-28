@@ -8,6 +8,7 @@ public class PhysicalLight : MonoBehaviour {
     private ParticleSystem pSys;
     private ParticleSystem.MainModule pMain;
     private ParticleSystem.EmissionModule pEmission;
+    [HideInInspector]
     public GameObject box;
 
 	// Use this for initialization
@@ -28,7 +29,11 @@ public class PhysicalLight : MonoBehaviour {
             pEmission.rateOverTime = factor * 10;
 
             // Trigger hit events
-            if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
+            if (hit.transform.tag == "Goal")
+            {
+                hit.transform.GetComponent<Goal>().CheckGoal(pMain.startColor.color);
+            }
+            else if (hit.transform.tag == "Box" && hit.transform.gameObject != box) {
                 if (box != null)
                 {
                     box.GetComponent<Box>().OnMissChain(transform.eulerAngles);
