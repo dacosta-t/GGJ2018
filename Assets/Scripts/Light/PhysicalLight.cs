@@ -60,9 +60,11 @@ public class PhysicalLight : MonoBehaviour
             }
             else if (hit.transform.tag != "Mirror" && mirror != null)
             {
-                mirror.GetComponent<Mirror>().RemoveSourceLight();
-                mirror.GetComponent<Mirror>().cleanList();
-                mirror.GetComponent<Mirror>().Setup();
+                Mirror mr = mirror.GetComponent<Mirror>();
+                mr.RemoveReflectedLight();
+                mr.RemoveSourceLight();
+                mr.cleanList();
+                mr.Setup();
                 mirror = null;
                 Debug.Log("clean");
             }
