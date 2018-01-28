@@ -1078,7 +1078,6 @@ GameObject:
   - component: {fileID: 4421057132578764}
   - component: {fileID: 20084640065751174}
   - component: {fileID: 124146167421411736}
-  - component: {fileID: 81782634627730150}
   m_Layer: 0
   m_Name: FaceCamera02
   m_TagString: Untagged
@@ -2589,7 +2588,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1098011692303230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8000002, y: 0.3, z: -3.7299998}
+  m_LocalPosition: {x: 2.8000002, y: 0, z: -68.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4168111563398938}
@@ -2828,13 +2827,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!81 &81782634627730150
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770978634795812}
-  m_Enabled: 1
 --- !u!95 &95762380289130800
 Animator:
   serializedVersion: 3
