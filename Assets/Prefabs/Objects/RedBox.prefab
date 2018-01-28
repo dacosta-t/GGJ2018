@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33862885950578322}
   - component: {fileID: 23951630762967028}
   - component: {fileID: 95784229822310602}
-  - component: {fileID: 54218067620310406}
   - component: {fileID: 114193145442966782}
   - component: {fileID: 135182215733983270}
   m_Layer: 0
@@ -86,21 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757105714340062}
   m_Mesh: {fileID: 4300000, guid: 10e450d9f192b8842b2d5875a8e69189, type: 3}
---- !u!54 &54218067620310406
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1757105714340062}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!95 &95784229822310602
 Animator:
   serializedVersion: 3
