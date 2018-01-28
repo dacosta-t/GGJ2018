@@ -12,7 +12,7 @@ public struct BoxFace {
 }
 
 public class Box : MonoBehaviour {
-
+    
     private BoxFace[] faces;
     public GameObject inputLight;
     public Color curColour;
