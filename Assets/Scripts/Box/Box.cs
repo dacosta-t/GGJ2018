@@ -64,7 +64,6 @@ public class Box : MonoBehaviour {
         } else if (yRotation == 270) {
             return faces[0];
         } else {
-            print("Failed to find face");
             return new BoxFace();
         }
     }
