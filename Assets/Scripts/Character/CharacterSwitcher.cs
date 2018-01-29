@@ -64,14 +64,6 @@ public class CharacterSwitcher : MonoBehaviour {
                 // Toggle grayscale
                 ToggleGrayscale(index);
 			}
-			else
-			{
-				Debug.Log ("SwitchCharacter(): Index is not valid");
-			}
-		} 
-		else
-		{
-			Debug.Log ("SwitchCharacter(): Index is out of bound");
 		}
 
 	}
@@ -89,10 +81,6 @@ public class CharacterSwitcher : MonoBehaviour {
 			characters [index].GetComponent<Rigidbody>().isKinematic = true;
 			// turn off the spotlight(higliht) itself
 			characters [index].transform.GetChild (0).gameObject.SetActive (false);
-		} 
-		else
-		{
-			Debug.Log ("DeactivateCharacter(): Index is not valid");
 		}
 	}
 
@@ -108,10 +96,6 @@ public class CharacterSwitcher : MonoBehaviour {
 			// turn on the spotlight(higliht) itself
 			characters [index].transform.GetChild (0).gameObject.SetActive (true);
 		}
-		else
-		{
-			Debug.Log ("ActivateCharacter(): Index is not valid");
-		}
 	}
 
 
@@ -120,10 +104,6 @@ public class CharacterSwitcher : MonoBehaviour {
 		if (index < characters.Length)
 		{
 			this.currentCharacterIndex = index;
-		}
-		else
-		{
-			Debug.Log ("SetCurrentCharacterIndex(): Index Out of bound");
 		}
 	}
 
@@ -153,10 +133,6 @@ public class CharacterSwitcher : MonoBehaviour {
 			// update relative location of the camera related to the parent
 			camera.localPosition  = new Vector3 (0, 10, -10);
 		}
-		else 
-		{
-			Debug.Log ("SetCameraTargetTo(): Index is equal");
-		}
 	}
 
 
@@ -172,9 +148,6 @@ public class CharacterSwitcher : MonoBehaviour {
 				return index;
 			}
 		}
-
-		Debug.Log ("GetIndexOfTheCharacter(): nothing found");
-
 		return -1;
 	}
 

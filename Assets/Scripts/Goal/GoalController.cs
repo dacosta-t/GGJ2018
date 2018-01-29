@@ -17,7 +17,6 @@ public class GoalController : MonoBehaviour {
         for (int i = 0; i < goals.Count; i++) {
             print(goals[i].isComplete);
             if (!goals[i].isComplete) {
-                print("Not all goals complete");
                 return;
             }
         }
@@ -62,7 +61,6 @@ public class GoalController : MonoBehaviour {
 	}
 
 	public void SendToNextScene(){
-		print("Completed level!");
 		if (nextLevel != "") {
 			SceneManager.LoadScene(nextLevel);
 		}

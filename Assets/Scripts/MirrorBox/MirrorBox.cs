@@ -68,7 +68,6 @@ public class MirrorBox : MonoBehaviour
         }
         else
         {
-            print("Failed to find face");
             return new BoxFace();
         }
     }
@@ -101,7 +100,6 @@ public class MirrorBox : MonoBehaviour
             }
             else
             {
-                print("Light with incorrect rotation");
                 return new BoxFace();
             }
         }
@@ -125,14 +123,11 @@ public class MirrorBox : MonoBehaviour
             }
             else
             {
-                print("Light with incorrect rotation");
                 return new BoxFace();
             }
         }
         else
         {
-            print("FindOutFace - Not valid rotation for mirror of 45 or 135 on Y");
-            print("Actual rotation: " + mirrorRotation);
             return new BoxFace();
         }
     }
@@ -146,14 +141,12 @@ public class MirrorBox : MonoBehaviour
             BoxFace outFace = FindOutFace(faces[i].rotation);
             if (!faces[i].isInput && faces[i].light != null && outFace.light == null)
             {
-                print("Delete");
                 Destroy(faces[i].light.gameObject);
                 faces[i].light = null;
                 // Create new lights
             }
             else if (faces[i].isInput && faces[i].light != null && outFace.light == null)
             {
-                print("Create");
                 ParticleSystem pSys = faces[i].light.GetComponent<ParticleSystem>();
                 ParticleSystem.MainModule pMain = pSys.main;
                 CreateLight(faces[i].light, pMain.startColor.color, new Vector3(0, faces[i].rotation, 0));

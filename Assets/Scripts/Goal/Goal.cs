@@ -25,6 +25,5 @@ public class Goal : MonoBehaviour {
 
     public void SetGoal(Color lightColour) {
         isComplete = lightColour.Equals(goalRequirement);
-        print(isComplete);
     }
 }

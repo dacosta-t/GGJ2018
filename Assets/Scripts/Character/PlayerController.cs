@@ -176,7 +176,6 @@ public class PlayerController : MonoBehaviour
         if (anObject != null)
         {
 
-            Debug.Log("Grabbed " + anObject.name);
             if (anObject.tag == "Box"
                 && transform.name == "Character01")
             {
@@ -194,13 +193,11 @@ public class PlayerController : MonoBehaviour
 
                 if (anObjectRot.eulerAngles.y == 0)
                 {
-                    Debug.Log("0 " + anObjectRot);
                     anObjectRot.Rotate(0f, 90f, 0f);
 
                 }
                 else
                 {
-                    Debug.Log("90");
                     anObjectRot.Rotate(0f, -90f, 0f);
                 }
                 //TODO Mirror: grab and make it Rotate
@@ -213,7 +210,6 @@ public class PlayerController : MonoBehaviour
     {
         if (anObject != null)
         {
-            Debug.Log("Released " + anObject.name);
             if (anObject.tag == "Box"
             && transform.name == "Character01")
             {
@@ -231,8 +227,6 @@ public class PlayerController : MonoBehaviour
 
             GetComponent<BoxCollider>().enabled = true;
             collidedObject = null;
-
-
         }
 
     }
